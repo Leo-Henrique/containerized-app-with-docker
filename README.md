@@ -13,7 +13,7 @@ O binário da aplicação — um back-end em Node.js — utiliza uma [imagem ofi
 
 ### Distro Alpine
 
-O primeiro passo visando a construção de um binário otimizado foi escolher uma versão de imagem do Node.js enxuta e que não contém recursos que sequer são utilizados. As versões Alpine tem origem da distro Alpine do Linux e possuem exatamente esse propósito.
+O primeiro passo visando a construção de um binário otimizado foi escolher uma versão de imagem do Node.js enxuta e que não contém recursos que sequer são utilizados. As versões Alpine tem origem da [distro Alpine do Linux](https://alpinelinux.org/) e possuem exatamente esse propósito.
 
 Eu escolhi a [20.18-alpine](https://hub.docker.com/layers/library/node/20.18-alpine/images/sha256-d504f23acdda979406cf3bdbff0dff7933e5c4ec183dda404ed24286c6125e60?context=explore) que contém apenas **45.42 MB**. Eu também abri mão das versões mais recentes para evitar qualquer possível vulnerabilidade.
 
@@ -22,6 +22,8 @@ Eu escolhi a [20.18-alpine](https://hub.docker.com/layers/library/node/20.18-alp
 Além do meu back-end em Node.js com TypeScript precisar ser compilado para JavaScript, eu também tenho muitas dependências de desenvolvimento que não fazem diferença alguma em produção.
 
 A estratégia de utilizar múltiplos estágios na construção da imagem no Dockerfile foi fundamental para que eu pudesse resolver esse problema e manter um binário leve.
+
+`./Dockerfile`
 
 ```Dockerfile
 FROM base AS prod-deps
@@ -81,3 +83,10 @@ containerized-app-with-docker-api       | http://172.20.0.2:3333/docs
 ```
 
 Como mostra a mensagem, você conseguirá acessar a documentação da API em: [http://172.20.0.2:3333/docs](http://172.20.0.2:3333/docs), um servidor em Node.js, sem o próprio Node.js instalado na sua máquina propriamente dita, mas sim, no container (um processo totalmente isolado)!
+
+<img 
+  src="https://github.com/user-attachments/assets/a159bbfe-8248-471e-af38-4a4c425ac973"
+  alt="API documentation"
+/>
+
+**OBS**: Se você já subiu serviços do Docker na sua máquina, talvez seja necessário trocar os endereços e portas que estão sendo mapeados. Você pode alterar as variáveis no arquivo `.env` localizado na raiz do projeto e deve subir os serviços novamente para aplicar as alterações.
