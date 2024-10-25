@@ -1,0 +1,41 @@
+services:
+  postgres:
+    container_name: containerized-app-with-docker-postgres
+    image: postgres:16-alpine3.18
+    environment:
+      - POSTGRES_USER=${POSTGRES_USERNAME}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DATABASE}
+    ports:
+      - ${POSTGRES_PORT}:5432
+    command: -p ${POSTGRES_PORT}
+    networks:
+      app-network:
+        ipv4_address: ${POSTGRES_HOST}
+    volumes:
+      - database-volume:/var/lib/postgresql/data
+
+  api:
+    container_name: containerized-app-with-docker-api
+    build: .
+    environment:
+      - API-PORT=${API_PORT}
+    ports:
+      - ${API_PORT}:${API_PORT}
+    depends_on:
+      - postgres
+    networks:
+      app-network:
+        ipv4_address: ${API_HOST}
+
+networks:
+  app-network:
+    name: containerized-app-with-docker-network
+    driver: bridge
+    ipam:
+      config:
+        - subnet: ${NETWORK_SUBNET}
+
+volumes:
+  database-volume:
+    name: containerized-app-with-docker-volume
