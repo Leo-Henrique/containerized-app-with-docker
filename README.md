@@ -69,20 +69,20 @@ Dois serviços serão iniciados. Um container conterá um servidor Node.js que u
 docker compose up -d --build
 ```
 
-### Verificar logs dos containers
+### Verificar logs do container da API
 
 ```bash
-docker compose logs
+docker compose logs api
 ```
 
 Se tudo estiver funcionando, você verá nas últimas linhas dos logs uma mensagem assim:
 
 ```bash
 containerized-app-with-docker-api       | Application "containerized-app-with-docker" is running!
-containerized-app-with-docker-api       | http://172.20.0.2:3333/docs
+containerized-app-with-docker-api       | http://localhost:3333/docs
 ```
 
-Como mostra a mensagem, você conseguirá acessar a documentação da API em: [http://172.20.0.2:3333/docs](http://172.20.0.2:3333/docs), um servidor em Node.js, sem o próprio Node.js instalado na sua máquina propriamente dita, mas sim, no container (um processo totalmente isolado)!
+Como mostra a mensagem, você conseguirá acessar a documentação da API em: [http://localhost:3333/docs](http://localhost:3333/docs), um servidor em Node.js, sem o próprio Node.js instalado na sua máquina propriamente dita, mas sim, no container (um processo totalmente isolado)!
 
 <img 
   src="https://github.com/user-attachments/assets/a159bbfe-8248-471e-af38-4a4c425ac973"
