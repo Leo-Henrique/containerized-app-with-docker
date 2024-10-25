@@ -17,12 +17,7 @@
     "test:integration:watch": "vitest --config ./vitest.config.integration.mts",
     "test:integration:coverage": "vitest run --config ./vitest.config.integration.mts --coverage.enabled=true",
     "prebuild": "rimraf ./dist",
-    "build": "unbuild",
-    "services:dev:up": "docker compose up -d",
-    "services:dev:down": "docker compose down",
-    "migrate": "drizzle-kit --config ./src/infra/database/setup.ts",
-    "migrate:generate": "pnpm migrate generate",
-    "migrate:up": "pnpm migrate migrate"
+    "build": "unbuild"
   },
   "dependencies": {
     "@fastify/cookie": "9.3.1",
