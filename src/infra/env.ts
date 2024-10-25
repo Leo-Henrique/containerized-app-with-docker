@@ -4,16 +4,24 @@ import { z } from "zod";
 
 config({ override: true });
 
+type ProcessEnvNodeEnv = z.infer<typeof nodeEnvSchema> | undefined;
+
+const nodeEnvSchema = z.enum(["test", "development", "production"]);
+
 const schema = z.object({
-  NODE_ENV: z.enum(["test", "development", "production"]),
+  NODE_ENV: nodeEnvSchema.default(
+    (process.env.NODE_ENV as ProcessEnvNodeEnv) ?? "development",
+  ),
   API_NAME: z.string().default(packageJson.name),
-  API_PORT: z.coerce.number().default(3333),
+  API_HOST: z.string().ip({ version: "v4" }),
+  API_PORT: z.coerce.number().transform(val => val - 1),
   API_ACCESS_PERMISSION_CLIENT_SIDE: z.string().default("*"),
+  POSTGRES_HOST: z.string().ip({ version: "v4" }),
+  POSTGRES_PORT: z.coerce.number(),
   POSTGRES_USERNAME: z.string(),
   POSTGRES_PASSWORD: z.string(),
-  POSTGRES_HOSTNAME: z.string(),
-  POSTGRES_PORT: z.coerce.number(),
   POSTGRES_DATABASE: z.string(),
+  NETWORK_SUBNET: z.string(),
 });
 
 const parsedEnv = schema.safeParse(process.env);

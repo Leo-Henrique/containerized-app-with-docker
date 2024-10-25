@@ -5,10 +5,9 @@ import { env } from "../env";
 export const postgresPool = new Pool({
   user: env.POSTGRES_USERNAME,
   password: env.POSTGRES_PASSWORD,
-  host: env.POSTGRES_HOSTNAME,
+  host: env.POSTGRES_HOST,
   port: env.POSTGRES_PORT,
   database: env.POSTGRES_DATABASE,
-  connectionTimeoutMillis: 2000,
 });
 
 export const drizzle = drizzleClient(postgresPool, {
