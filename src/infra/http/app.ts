@@ -15,7 +15,7 @@ import { errorHandlerPlugin } from "./plugins/error-handler.plugin";
 import { handleSwaggerMultipart } from "./plugins/handle-swagger-multipart.plugin";
 import { routes } from "./routes";
 
-export const app = fastify();
+export const app = fastify({ logger: true });
 
 app.setValidatorCompiler(validatorCompiler);
 app.setSerializerCompiler(serializerCompiler);
