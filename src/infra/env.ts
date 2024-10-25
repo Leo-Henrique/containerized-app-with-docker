@@ -14,7 +14,7 @@ const schema = z.object({
   ),
   API_NAME: z.string().default(packageJson.name),
   API_HOST: z.string().ip({ version: "v4" }),
-  API_PORT: z.coerce.number().transform(val => val - 1),
+  API_PORT: z.coerce.number(),
   API_ACCESS_PERMISSION_CLIENT_SIDE: z.string().default("*"),
   POSTGRES_HOST: z.string().ip({ version: "v4" }),
   POSTGRES_PORT: z.coerce.number(),
