@@ -30,9 +30,7 @@ export async function helloController(app: FastifyInstance) {
       const { show } = req.query;
 
       if (!show)
-        throw new BadRequestError(
-          `You don't want to display the "hello world"!`,
-        );
+        throw new BadRequestError(`Você não quer exibir o "hello world!" :(`);
 
       res.status(200).send({ message: "Hello world!" });
     },
